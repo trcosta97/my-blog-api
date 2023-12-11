@@ -24,27 +24,34 @@ public class Comment {
     private String title;
     @Column(nullable = false)
     private String content;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "post_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="post_id")
     private Post post;
     @ManyToOne
     @JoinColumn(name = "account_id", nullable = false)
     private Account account;
-
     @Column(name = "creationDate", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime creationDate;
     @Column(name = "lastUpdate", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime lastUpdate;
-    @Column(name = "active", nullable = false,columnDefinition = "BIT(1) DEFAULT 1")
+    @Column(name = "active",  columnDefinition = "BOOLEAN DEFAULT TRUE")
     private Boolean active;
 
 
     public Comment(AddCommentDTO data) {
         setContent(data.content());
         setTitle(data.title());
+        setAccount(new Account(data.accountId()));
 
     }
+
+//    @PrePersist
+//    public void prePersist() {
+//        setCreationDate(LocalDateTime.now());
+//        setLastUpdate(LocalDateTime.now());
+//        setActive(true);
+//    }
 }
 

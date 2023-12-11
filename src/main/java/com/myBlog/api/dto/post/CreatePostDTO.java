@@ -1,6 +1,7 @@
 package com.myBlog.api.dto.post;
 
 import com.myBlog.api.domain.Account;
+import com.myBlog.api.dto.account.AuthorDTO;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
@@ -10,5 +11,5 @@ public record CreatePostDTO(
         @NotBlank(message = "Content is required")
         @Size(min = 100, max = 10000, message = "Content must be at least 10 characters and maximum 10000 characters")
         String content,
-        Account account){
+        AuthorDTO author){
 }

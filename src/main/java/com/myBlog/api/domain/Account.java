@@ -2,9 +2,11 @@ package com.myBlog.api.domain;
 
 
 import com.myBlog.api.dto.account.CreateAccountDTO;
+import com.myBlog.api.dto.account.UpdateAccountDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.security.PublicKey;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -25,7 +27,7 @@ public class Account {
     private String name;
     @Column(name = "lastName", nullable = false)
     private String lastName;
-    @Column(name="birthDate", nullable = false)
+    @Column(name="birthDate")
     @Temporal(TemporalType.DATE)
     private LocalDate birthDate;
     @Column(name = "login", nullable = false, unique = true)
@@ -38,8 +40,7 @@ public class Account {
     @Column(name = "lastUpdate", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime lastUpdate;
-    @Column(name = "active", nullable = false,columnDefinition = "BIT(1) DEFAULT 1")
-
+    @Column(name = "active",  columnDefinition = "BOOLEAN DEFAULT TRUE")
     private Boolean active;
 
     public Account(CreateAccountDTO data) {
@@ -47,6 +48,18 @@ public class Account {
         this.lastName = data.lastName();
         this.login = data.login();
         this.password = data.password();
+        this.birthDate = data.birthDate();
+    }
+
+    public Account(UpdateAccountDTO data) {
+        this.name = data.name();
+        this.lastName = data.lastName();
+        this.login = data.login();
+        this.password = data.password();
+    }
+
+    public Account(Long id){
+        this.id = id;
     }
 
     @PrePersist
@@ -55,4 +68,6 @@ public class Account {
         this.lastUpdate = LocalDateTime.now();
         this.active = true;
     }
+
+
 }

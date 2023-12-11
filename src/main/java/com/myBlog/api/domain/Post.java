@@ -1,6 +1,8 @@
 package com.myBlog.api.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.myBlog.api.dto.post.CreatePostDTO;
+import com.myBlog.api.dto.post.UpdatePostDTO;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -28,22 +30,27 @@ public class Post {
     @ManyToOne
     @JoinColumn(name = "account_id", nullable = false)
     private Account author;
-    @OneToMany
-    @JoinColumn(name = "comment_id", nullable = false)
-    private List<Comment> comments;
+    @OneToMany( mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonIgnore
+    private List<Comment> comments = new ArrayList<Comment>();
     @Column(name = "creationDate", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime creationDate;
     @Column(name = "lastUpdate", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime lastUpdate;
-    @Column(name = "active", nullable = false,columnDefinition = "BIT(1) DEFAULT 1")
+    @Column(name = "active",  columnDefinition = "BOOLEAN DEFAULT TRUE")
     private Boolean active;
 
     public Post(CreatePostDTO data) {
         setTitle(data.title());
         setContent(data.content());
-        setAuthor(data.account());
+        setAuthor(new Account(data.author().id()));
+    }
+
+    public Post(UpdatePostDTO data) {
+        setTitle(data.title());
+        setContent(data.content());
     }
 
     @PrePersist

@@ -11,6 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -62,14 +63,12 @@ public class PostService {
         }
     }
 
-    public Comment addComment(Long id, Comment comment) {
-        Optional<Post> optionalPost = postRepository.findById(id);
-        if (optionalPost.isPresent()) {
-            Post post = optionalPost.get();
-            post.addComment(comment);
-            return postRepository.save(post).getComments().get(post.getComments().size() - 1);
+    public void verifyPostExists(Long postId) {
+        if (!postRepository.existsById(postId)) {
+            throw new EntityNotFoundException("Post not found with id: " + postId);
         }
-        throw new EntityNotFoundException("Post not found");
     }
+
+
 
 }
