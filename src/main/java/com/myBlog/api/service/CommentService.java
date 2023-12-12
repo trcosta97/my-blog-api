@@ -2,16 +2,15 @@ package com.myBlog.api.service;
 
 import com.myBlog.api.domain.Account;
 import com.myBlog.api.domain.Comment;
-import com.myBlog.api.domain.Post;
 import com.myBlog.api.exception.EntityNotFoundException;
 import com.myBlog.api.repository.CommentRepository;
 import com.myBlog.api.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
 
 @Service
 public class CommentService {
@@ -32,6 +31,11 @@ public class CommentService {
         });
         comment.setAccount(new Account(comment.getAccount().getId()));
         return commentRepository.save(comment);
+    }
+
+    public Page<Comment> getAll(Long postId, Integer page, Integer size) {
+        var pagination = PageRequest.of(page, size);
+        return commentRepository.findByPostId(postId, pagination);
     }
 }
 

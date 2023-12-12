@@ -63,11 +63,12 @@ public class PostService {
         }
     }
 
-    public void verifyPostExists(Long postId) {
-        if (!postRepository.existsById(postId)) {
-            throw new EntityNotFoundException("Post not found with id: " + postId);
-        }
+    public Page<Post> getAllByAccountId(Long accountId, Integer page, Integer size) {
+        var pagination = PageRequest.of(page, size);
+        return postRepository.findByAccountId(accountId, pagination);
     }
+
+
 
 
 

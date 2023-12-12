@@ -7,6 +7,7 @@ import com.myBlog.api.service.AccountService;
 import com.myBlog.api.service.CommentService;
 import com.myBlog.api.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,13 +26,17 @@ public class CommentController {
 
     @PostMapping("/{postId}")
     public ResponseEntity<ShowCommentDTO> addComment(@PathVariable Long postId, @RequestBody AddCommentDTO data) {
-        try {
-            postService.verifyPostExists(postId);
-            Comment comment = commentService.create(new Comment(data), postId);
-            var showComment = new ShowCommentDTO(comment);
-            return ResponseEntity.ok(showComment);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().build();
-        }
+        Comment comment = commentService.create(new Comment(data), postId);
+        var showComment = new ShowCommentDTO(comment);
+        return ResponseEntity.ok(showComment);
     }
+
+    @GetMapping("/{postId}")
+    public ResponseEntity<Page<ShowCommentDTO>> getAll(@PathVariable Long postId, @RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "10") Integer size){
+        var paginacao = commentService.getAll(postId, page, size).map(ShowCommentDTO::new);
+        return ResponseEntity.ok(paginacao);
+    }
+
+
+
 }

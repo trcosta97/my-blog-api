@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 
 @Entity
-@Table(name = "comments")
+@Table(name = "tb_comments")
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
@@ -47,11 +47,10 @@ public class Comment {
 
     }
 
-//    @PrePersist
-//    public void prePersist() {
-//        setCreationDate(LocalDateTime.now());
-//        setLastUpdate(LocalDateTime.now());
-//        setActive(true);
-//    }
+    @PrePersist
+    public void prePersist() {
+        setCreationDate(LocalDateTime.now());
+        setLastUpdate(LocalDateTime.now());
+    }
 }
 

@@ -60,5 +60,11 @@ public class PostController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/author/{authorId}")
+    public ResponseEntity<Page<ShowPostDTO>> getAllByAuthor(@PathVariable Long authorId, @RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "10") Integer size){
+        var paginacao = postService.getAllByAccountId(authorId, page, size).map(ShowPostDTO::new);
+        return ResponseEntity.ok(paginacao);
+    }
+
 
 }
