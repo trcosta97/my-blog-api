@@ -1,6 +1,6 @@
 package com.myBlog.api.dto.account;
 
-import com.myBlog.api.domain.Account;
+import com.myBlog.api.domain.account.Account;
 
 public record ShowAccountDTO(Long id, String name, String lastName, String login, String password, String birthDate) {
     public ShowAccountDTO(Account account) {

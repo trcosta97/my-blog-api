@@ -1,6 +1,7 @@
 package com.myBlog.api.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.myBlog.api.domain.account.Account;
 import com.myBlog.api.dto.post.CreatePostDTO;
 import com.myBlog.api.dto.post.UpdatePostDTO;
 import jakarta.persistence.*;

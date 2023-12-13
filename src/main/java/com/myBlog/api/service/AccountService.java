@@ -1,6 +1,6 @@
 package com.myBlog.api.service;
 
-import com.myBlog.api.domain.Account;
+import com.myBlog.api.domain.account.Account;
 import com.myBlog.api.exception.EntityNotFoundException;
 import com.myBlog.api.repository.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;

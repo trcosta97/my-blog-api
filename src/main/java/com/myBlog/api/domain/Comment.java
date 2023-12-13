@@ -1,5 +1,6 @@
 package com.myBlog.api.domain;
 
+import com.myBlog.api.domain.account.Account;
 import com.myBlog.api.dto.comment.AddCommentDTO;
 import jakarta.persistence.*;
 import lombok.*;

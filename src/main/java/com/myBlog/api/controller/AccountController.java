@@ -1,6 +1,6 @@
 package com.myBlog.api.controller;
 
-import com.myBlog.api.domain.Account;
+import com.myBlog.api.domain.account.Account;
 import com.myBlog.api.dto.account.CreateAccountDTO;
 import com.myBlog.api.dto.account.ShowAccountDTO;
 import com.myBlog.api.dto.account.UpdateAccountDTO;

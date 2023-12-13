@@ -1,8 +1,7 @@
 package com.myBlog.api.service;
 
-import com.myBlog.api.domain.Account;
+import com.myBlog.api.domain.account.Account;
 import com.myBlog.api.domain.Comment;
-import com.myBlog.api.exception.EntityNotFoundException;
 import com.myBlog.api.repository.CommentRepository;
 import com.myBlog.api.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
